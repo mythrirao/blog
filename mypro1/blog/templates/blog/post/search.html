@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Our Blog{% endblock %}
+
+{% block content %}
+  <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+    {% for post in filter.qs  %}
+       <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+        <p class="small">Published {{ post.publish }} by {{ post.author }}</p>
+        <p>{{ post.body|truncatewords:30|linebreaks }}</p>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+<ul>
+  {% for user in filter.qs %}
+    <li>{{ user.username }} - {{ user.get_full_name }}</li>
+  {% endfor %}
+  </ul>
